@@ -2,8 +2,8 @@ class Planets
 
 	attr_accessor :size, :x, :y, :x_vel, :y_vel, :image
 
-	def initialize(file_name)
-		#@image = Gosu::Image.new("images/#{}")
+	def initialize(file_name, window)
+		@window = window
 		mass = []
 		x = []
 		y = []
@@ -20,15 +20,15 @@ class Planets
 			mass.push(info[4].to_f)
 			image.push(info[5].to_s.strip)
 		end
-		size_of_universe = x.take(2)
-		nbr_of_planets = size_of_universe.take(1)
-		x = x.drop(2)
-		y = y.drop(2)
-		x_vel = x_vel.drop(2)
-		y_vel = y_vel.drop(2)
-		image = image.drop(2)
-		mass = mass.drop(2)
-		puts "#{nbr_of_planets} planets, #{size_of_universe} universe size"
+		@size_of_universe = x[1]
+		@nbr_of_planets = x.first
+		@x = x.drop(2)
+		@y = y.drop(2)
+		@x_vel = x_vel.drop(2)
+		@y_vel = y_vel.drop(2)
+		@image = image.drop(2)
+		@mass = mass.drop(2)
+		@ratio = (@size_of_universe / (window.width / 2))
 	end
 
 	def update
@@ -36,6 +36,10 @@ class Planets
 	end
 
 	def draw
-		
+		@image.each_with_index do |planet, i|
+			picture = Gosu::Image.new("images/#{planet}")
+			picture.draw(x[i] / @ratio, y[i] / @ratio, 1)
+		end
 	end
+
 end

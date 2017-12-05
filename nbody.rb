@@ -9,7 +9,7 @@ class NbodySimulation < Gosu::Window
     self.caption = "NBody simulation"
     @background_image = Gosu::Image.new("images/space.jpg", tileable: true)
     @file_name = ARGV.join(" ")
-    @bodies = Planets.new(@file_name)
+    @bodies = Planets.new(@file_name, self)
   end
 
   def update
@@ -18,6 +18,7 @@ class NbodySimulation < Gosu::Window
 
   def draw
     @background_image.draw(0, 0, ZOrder::Background)
+    @bodies.draw
   end
 
   def button_down(id)
