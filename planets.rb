@@ -28,7 +28,8 @@ class Planets
 		@y_vel = y_vel.drop(2)
 		@image = image.drop(2)
 		@mass = mass.drop(2)
-		@ratio = (@size_of_universe / (window.width / 2))
+		@middle = window.width / 2
+		@ratio = (@size_of_universe / @middle)
 	end
 
 	def update
@@ -38,7 +39,7 @@ class Planets
 	def draw
 		@image.each_with_index do |planet, i|
 			picture = Gosu::Image.new("images/#{planet}")
-			picture.draw(x[i] / @ratio, y[i] / @ratio, 1)
+			picture.draw_rot((x[i] / @ratio) + 320, (y[i] / @ratio) + 320, 1, 0.0)
 		end
 	end
 
