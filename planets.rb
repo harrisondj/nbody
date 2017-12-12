@@ -1,3 +1,4 @@
+require "./planetBodies.rb"
 class Planets
 
 	attr_accessor :size, :x, :y, :x_vel, :y_vel, :image
@@ -30,6 +31,10 @@ class Planets
 		@mass = mass.drop(2)
 		@middle = window.width / 2
 		@ratio = (@size_of_universe / @middle)
+		
+		@image.each_with_index do |name, i|
+			@planets = PlanetBodies.new(@x[i], @y[i], @x_vel[i], @y_vel[i], @mass[i], name)
+		end
 	end
 
 	def update
@@ -37,10 +42,11 @@ class Planets
 	end
 
 	def draw
-		@image.each_with_index do |planet, i|
-			picture = Gosu::Image.new("images/#{planet}")
-			picture.draw_rot((x[i] / @ratio) + 320, (y[i] / @ratio) + 320, 1, 0.0)
-		end
+		@planets.draw(@ratio)
+		# @image.each_with_index do |planet, i|
+		# 	picture = Gosu::Image.new("images/#{planet}")
+		# 	picture.draw_rot((x[i] / @ratio) + 320, (y[i] / @ratio) + 320, 1, 0.0)
+		# end
 	end
 
 end
