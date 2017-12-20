@@ -10,6 +10,8 @@ class NbodySimulation < Gosu::Window
     @background_image = Gosu::Image.new("images/space.jpg", tileable: true)
     @file_name = ARGV.join(" ")
     @bodies = Planets.new(@file_name, self)
+    @universe_radius = @bodies.radius
+    puts @universe_radius
   end
 
   def update
@@ -26,7 +28,5 @@ class NbodySimulation < Gosu::Window
   end
   
 end
-
-
 window = NbodySimulation.new
 window.show
